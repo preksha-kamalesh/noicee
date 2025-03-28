@@ -1,0 +1,100 @@
+/* General container styles */
+.profilepage-body .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #e0f7fa, #80deea);
+    font-family: "Arial", sans-serif;
+}
+
+/* Profile card styles */
+.profilepage-body .profile-card {
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.profilepage-body .profile-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Profile card heading */
+.profilepage-body .profile-card h1 {
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #121212;
+}
+
+/* Profile info */
+.profilepage-body .profile-info p {
+    margin: 15px 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #000000;
+}
+
+/* Buttons */
+button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profilepage-body .edit-button {
+    background-color: #007bff;
+    margin-left: 8px;
+    color: white;
+}
+
+.profilepage-body .edit-button:hover {
+    background-color: #0056b3;
+}
+
+.profilepage-body .save-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.profilepage-body .save-button:hover {
+    background-color: #218838;
+}
+
+.profilepage-body .cancel-button {
+    margin-left: 8px;
+    background-color: #dc3545;
+    color: white;
+}
+
+.profilepage-body .cancel-button:hover {
+    background-color: #c82333;
+}
+
+/* Edit Profile section */
+.profilepage-body .edit-profile label {
+    display: block;
+    margin: 15px 0;
+    text-align: left;
+    font-size: 16px;
+    color: #333;
+}
+
+.profilepage-body .edit-profile input,
+.profilepage-body .edit-profile select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
