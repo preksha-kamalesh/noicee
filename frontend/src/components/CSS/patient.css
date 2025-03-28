@@ -1,0 +1,104 @@
+.patientinfo-body .patient-info-container 
+{
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.patientinfo-body h2 
+{
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.patientinfo-body .patient-info-form 
+{
+    display: grid;
+    grid-gap: 16px;
+}
+
+.patientinfo-body label 
+{
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.patientinfo-body input[type="text"],
+.patientinfo-body input[type="number"] 
+{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.patientinfo-body input[type="text"]:focus,
+.patientinfo-body input[type="number"]:focus 
+{
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+}
+
+.patientinfo-body div { margin-bottom: 12px; }
+
+.patientinfo-body input[type="radio"] { margin-right: 8px; }
+
+.patientinfo-body .button-group 
+{
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.patientinfo-body .edit-button
+{
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.patientinfo-body .edit-button:hover { background-color: #45a049; }
+
+.patientinfo-body .edit-button:disabled 
+{
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) 
+{
+    .patientinfo-body .patient-info-container { padding: 20px; }
+
+    .patientinfo-body input[type="text"],
+    .patientinfo-body input[type="number"] 
+    {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .patientinfo-body button 
+    {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

@@ -1,47 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-export function Doctor() 
-{
-    const { id } = useParams();
-    const role = localStorage.getItem('role');
+import { Navigate } from 'react-router-dom';
 
-    return <DoctorProfile role={role} id={id} />;
-}
-
-export const DoctorProfile = () => {
-  const [profile, setProfile] = useState(null);
-  const [error, setError] = useState('');
+const DoctorProfile = () => {
+  const [doctor, setDoctor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const doctorID = localStorage.getItem('userID'); // Adjust according to your authentication flow
 
   useEffect(() => {
-    const fetchProfile = async (docID) => {
-      try {
-        console.log(docID);
-        const response = await axios.get(`http://localhost:9000/doctor/${docID}`, { withCredentials: true });
-        setProfile(response.data);
-      } catch (err) {
-        setError('Failed to load profile.');
-        console.error(err);
-      }
-    };
+    if (doctorID) {
+      axios.get(`http://localhost:9000/doctor/${doctorID}`)
+        .then(res => {
+          setDoctor(res.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Error fetching doctor profile:", err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [doctorID]);
 
-    fetchProfile();
-  }, []);
-
-  if (error) return <div>{error}</div>;
-  if (!profile) return <div>Loading...</div>;
+  if (!doctorID) return <Navigate to="/login" />;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="doctor-profile">
       <h2>Doctor Profile</h2>
-      <p><strong>Doctor Name:</strong> {profile.doctorName}</p>
-      <p><strong>Doctor ID:</strong> {profile.doctorID}</p>
-      <p><strong>Contact Info:</strong> {profile.contactInfo}</p>
-      <p><strong>Medical License Number:</strong> {profile.medicalLicenseNumber}</p>
-      <p><strong>Qualifications:</strong> {profile.qualifications}</p>
-      <p><strong>Hospital / Clinic Associated with:</strong> {profile.hospitalOrClinic}</p>
-      <p><strong>Speciality:</strong> {profile.speciality}</p>
+      <p><strong>ID:</strong> {doctor.docID}</p>
+      <p><strong>Name:</strong> {doctor.doctorName}</p>
+      <p><strong>Contact Info:</strong> {doctor.contactInfo}</p>
+      <p><strong>Medical License Number:</strong> {doctor.medicalLicenseNumber}</p>
+      <p><strong>Qualifications:</strong> {doctor.qualifications}</p>
+      <p><strong>Hospital/Clinic:</strong> {doctor.hospitalOrClinic}</p>
+      <p><strong>Speciality:</strong> {doctor.speciality}</p>
     </div>
   );
 };
 
+export default DoctorProfile;

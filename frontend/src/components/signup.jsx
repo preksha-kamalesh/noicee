@@ -102,7 +102,6 @@ class SignUp extends Component {
           <h2>Sign Up</h2>
           <p>Create an account to get started.</p>
 
-          {/* Role selection */}
           {!role ? (
             <div className="role-selection">
               <button type="button" onClick={() => this.handleRoleSelection('patient')}>Patient</button>
@@ -127,7 +126,6 @@ class SignUp extends Component {
                 required
               />
 
-              {/* Extra fields for doctors */}
               {role === 'doctor' && (
                 <>
                   <label htmlFor="doctorName">Doctor Name:</label>
@@ -135,7 +133,6 @@ class SignUp extends Component {
                     type="text"
                     id="doctorName"
                     name="doctorName"
-                    placeholder=""
                     value={doctorName}
                     onChange={this.handleInputChange}
                     required
@@ -146,7 +143,6 @@ class SignUp extends Component {
                     type="text"
                     id="contactInfo"
                     name="contactInfo"
-                    placeholder=""
                     value={contactInfo}
                     onChange={this.handleInputChange}
                   />
@@ -156,7 +152,6 @@ class SignUp extends Component {
                     type="text"
                     id="medicalLicenseNumber"
                     name="medicalLicenseNumber"
-                    placeholder=""
                     value={medicalLicenseNumber}
                     onChange={this.handleInputChange}
                   />
@@ -166,7 +161,6 @@ class SignUp extends Component {
                     type="text"
                     id="qualifications"
                     name="qualifications"
-                    placeholder=""
                     value={qualifications}
                     onChange={this.handleInputChange}
                   />
@@ -176,7 +170,6 @@ class SignUp extends Component {
                     type="text"
                     id="hospitalOrClinic"
                     name="hospitalOrClinic"
-                    placeholder=""
                     value={hospitalOrClinic}
                     onChange={this.handleInputChange}
                   />
@@ -186,7 +179,6 @@ class SignUp extends Component {
                     type="text"
                     id="speciality"
                     name="speciality"
-                    placeholder=""
                     value={speciality}
                     onChange={this.handleInputChange}
                   />
