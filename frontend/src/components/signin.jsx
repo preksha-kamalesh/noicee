@@ -23,10 +23,6 @@ class Login extends Component
             const response = await axios.post('http://localhost:9000/login', { role, userID, password }, { withCredentials: true });
             if (response.data.token) 
             {
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("role", role);
-                localStorage.setItem("ID", userID);
-    
                 alert('Sign In successful!');
                 this.props.onLoginSuccess();
                 this.setState({ redirect: true });
@@ -46,8 +42,10 @@ class Login extends Component
     render() 
     {
         const { role, userID, password, redirect, goToMain, error } = this.state;
-
-        if (redirect) return <Navigate to="/home" />;
+        if (redirect) 
+            {
+                return <Navigate to="/home" />;
+            }
         if (goToMain) return <Navigate to="/" />;
 
         let imageSrc = "signin_img.webp";
