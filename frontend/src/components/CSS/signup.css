@@ -9,7 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
     position: relative;
 }
 
@@ -47,7 +48,7 @@
     margin-bottom: 5px;
 }
 
-.signup-body input[type="text"], .signup-body input[type="password"] 
+.signup-body input[type="text"], .signup-body input[type="password"], .signup-body input[type="number"]
 {
     width: 100%;
     padding: 10px;

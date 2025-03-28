@@ -29,15 +29,24 @@ const PORT = 9000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.post("/signup", async (req, res) => {
-    try 
-    {
-        const { role, userID, password, confirmPassword } = req.body;
+    try {
+        const {
+            role, userID, password, confirmPassword,
+            patientName, accountID, age, bloodType, allergenInfo,
+            emergencyContactID, emergencyContactName, emergencyContactNumber,
+            drinkingHabits, smokingHabits, DNR, primaryPhysician,
+            physicianID, insuranceID
+        } = req.body;
 
-        if (!["doctor", "patient", "paramedic"].includes(role)) { return res.status(400).json({ message: "Invalid role" }); }
-
-        if (!userID) { return res.status(400).json({ message: "User ID is required." }); }
-
-        if (password !== confirmPassword) { return res.status(400).json({ message: "Passwords do not match." }); }
+        if (!["doctor", "patient", "paramedic"].includes(role)) {
+            return res.status(400).json({ message: "Invalid role" });
+        }
+        if (!userID) {
+            return res.status(400).json({ message: "User ID is required." });
+        }
+        if (password !== confirmPassword) {
+            return res.status(400).json({ message: "Passwords do not match." });
+        }
 
         const existingUser = await signupModel.findOne({
             $or: [
@@ -47,24 +56,44 @@ app.post("/signup", async (req, res) => {
             ]
         });
 
-        if (existingUser) { return res.status(400).json({ message: "ID already in use." });}
+        if (existingUser) {
+            return res.status(400).json({ message: "ID already in use." });
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new signupModel({
             role,
             password: hashedPassword,
-            ...(role === "doctor" && { docID: userID }),
-            ...(role === "patient" && { patientID: userID }),
-            ...(role === "paramedic" && { paramedicID: userID })
+            ...(role === "doctor" && {
+                docID: userID
+            }),
+            ...(role === "patient" && {
+                patientID: userID,
+                patientName,
+                accountID: accountID ,
+                age: Number(age) ,
+                bloodType: bloodType,
+                allergenInfo: allergenInfo ,
+                emergencyContactID: emergencyContactID,
+                emergencyContactName: emergencyContactName,
+                emergencyContactNumber: emergencyContactNumber,
+                drinkingHabits: drinkingHabits,
+                smokingHabits: smokingHabits,
+                DNR: DNR,
+                primaryPhysician: primaryPhysician ,
+                physicianID: physicianID,
+                insuranceID: insuranceID
+            }),
+            ...(role === "paramedic" && {
+                paramedicID: userID
+            })
         });
 
         await newUser.save();
         res.status(201).json({ message: "Signup successful", user: { userID, role } });
-    } 
-    catch (err) 
-    {
-        console.error(err);
+    } catch (err) {
+        console.error("Signup Error:", err);
         res.status(500).json({ message: "Signup failed. Please try again." });
     }
 });

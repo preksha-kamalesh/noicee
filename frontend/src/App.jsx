@@ -8,11 +8,12 @@ import { isAuthenticated, logout } from './features/auth';
 import ProfilePage from './components/ProfilePage';
 import HomePage from './components/home';
 import Main from "./components/main";
+import PatientInfo from "./components/patient";
 import "./App.css"
 
 class App extends Component 
 {
-    state = { authenticated: false, username: null, };
+    state = { authenticated: false, username: null, userID: null,  };
 
     fetchUsername = async () => {
         try 
@@ -59,6 +60,8 @@ class App extends Component
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} />
                         <Route path="/reset-password/:id/:token" element={<ResetPasswordWrapper />} />
+                        {/*<Route path="/patient/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />*/}
+                        <Route path="/patient" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
                     </Routes>
                 </div>
             </Router>
