@@ -1,169 +1,104 @@
-.patientinfo-body body 
+.patientinfo-body .patient-info-container 
 {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f6d365, #fda085);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.patientinfo-body .container 
-{
-    width: 80%;
-    max-width: 1200px;
-    padding: 20px;
-    background: transparent;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
     border-radius: 12px;
-    animation: fadeIn 0.5s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
-.patientinfo-body .form-grid 
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    align-items: start;
-}
-
-@keyframes fadeIn 
-{
-    from 
-    {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to 
-    {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.patientinfo-body .form-grid 
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 20px;
-    width: 100%;
-    align-items: start;
-}
-
-.patientinfo-body h3
+.patientinfo-body h2 
 {
     color: #333;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #ff758c;
-    padding-bottom: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-.patientinfo-body .input-group 
+.patientinfo-body .patient-info-form 
 {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-width: 90%;
+    display: grid;
+    grid-gap: 16px;
 }
 
-.patientinfo-body .input-label 
+.patientinfo-body label 
 {
-    font-weight: bold;
-    color: #444;
+    display: block;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 6px;
+    font-weight: 500;
 }
 
-.patientinfo-body .input-field 
+.patientinfo-body input[type="text"],
+.patientinfo-body input[type="number"] 
 {
     width: 100%;
-    max-width: 350px;
     padding: 10px;
-    border: 2px solid #ff9a8b;
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
-    transition: 0.3s;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-.patientinfo-body .input-field:focus 
+.patientinfo-body input[type="text"]:focus,
+.patientinfo-body input[type="number"]:focus 
 {
-    border-color: #ff758c;
     outline: none;
-    box-shadow: 0 0 5px rgba(255, 117, 140, 0.5);
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
 }
 
-.patientinfo-body .input-field:disabled 
-{
-    background-color: #f3f3f3;
-    cursor: not-allowed;
-}
+.patientinfo-body div { margin-bottom: 12px; }
+
+.patientinfo-body input[type="radio"] { margin-right: 8px; }
 
 .patientinfo-body .button-group 
 {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    gap: 12px;
     margin-top: 20px;
-    width: 100%;
-    gap: 15px;
 }
 
-.patientinfo-body .edit-button, .patientinfo-body .save-button 
+.patientinfo-body .edit-button
 {
-    padding: 12px 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    transition: background 0.3s ease;
 }
 
-.patientinfo-body .edit-button 
+.patientinfo-body .edit-button:hover { background-color: #45a049; }
+
+.patientinfo-body .edit-button:disabled 
 {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
-.patientinfo-body .edit-button:hover { transform: scale(1.05); }
-
-.patientinfo-body .save-button 
+@media (max-width: 600px) 
 {
-    background: linear-gradient(135deg, #43cea2, #185a9d);
-    color: white;
-}
+    .patientinfo-body .patient-info-container { padding: 20px; }
 
-.patientinfo-body .save-button:hover { transform: scale(1.05); }
+    .patientinfo-body input[type="text"],
+    .patientinfo-body input[type="number"] 
+    {
+        font-size: 14px;
+        padding: 8px;
+    }
 
-.patientinfo-body .block0,
-.patientinfo-body .block1,
-.patientinfo-body .block2 
-{
-    background: rgba(255, 255, 255, 0.522);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.patientinfo-body .block0, .patientinfo-body .block1 { width: 90%; }
-
-.patientinfo-body .block2 
-{
-    grid-column: span 2;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    width: 95%;
-    justify-content: space-between;
-}
-
-.patientinfo-body .block2 .input-group 
-{
-    width: 48%;
-    min-width: 280px;
+    .patientinfo-body button 
+    {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }

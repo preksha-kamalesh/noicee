@@ -9,7 +9,7 @@ class SignUp extends Component {
         this.state = {
             role: '', userID: '', password: '', confirmPassword: '',
             patientName: '', accountID: "", age: "", bloodType: "", allergenInfo: "", emergencyContactID: "", emergencyContactName: "",
-            emergencyContactNumber: "No", drinkingHabits: "No", smokingHabits: "", DNR: "No", primaryPhysician: "", physicianID: "", insuranceID: "",
+            emergencyContactNumber: "", drinkingHabits: "No", smokingHabits: "No", DNR: "No", primaryPhysician: "", physicianID: "", insuranceID: "",
             passwordTooltip: true, redirect: false, goToMain: false
         };
 
@@ -108,8 +108,7 @@ class SignUp extends Component {
                             <label htmlFor="confirm-password">Confirm Password:</label>
                             <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm your password"
                                 value={confirmPassword} onChange={this.handleInputChange} required />
-
-                            {/* Extra fields for Patients */}
+                                
                             {role === 'patient' && (
                                 <>
                                     <label>Patient Name:</label>

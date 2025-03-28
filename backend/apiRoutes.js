@@ -7,18 +7,6 @@ const verifyUser = require('./verifyUser');
 const jwt = require('jsonwebtoken');
 const User = require("./models/User");
 
-router.get('/medications', (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'dose_meds.json');
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error("Error reading file:", err);
-            return res.status(500).send("Unable to load dosage information.");
-        }
-        const medications = JSON.parse(data);
-        res.json(medications);
-    });
-});
-
 router.get('/check-auth', (req, res) => {
     const token = req.cookies.token;
     if (!token) return res.status(401).json({ message: 'Not authenticated' });
@@ -90,5 +78,7 @@ router.delete("/account", verifyUser, async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 });
+
+
 
 module.exports = router;

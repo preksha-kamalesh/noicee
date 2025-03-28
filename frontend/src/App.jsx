@@ -8,7 +8,7 @@ import { isAuthenticated, logout } from './features/auth';
 import ProfilePage from './components/ProfilePage';
 import HomePage from './components/home';
 import Main from "./components/main";
-import PatientInfo from "./components/patient";
+import { PatientInfo } from "./components/patient";
 import "./App.css"
 
 class App extends Component 
@@ -44,6 +44,9 @@ class App extends Component
 
     render() 
     {
+        const r = localStorage.getItem("role");
+        const p = localStorage.getItem("ID");
+
         return (
             <Router>
                 <div>
@@ -56,12 +59,11 @@ class App extends Component
                         <Route path="/" element={<Main />} />
                         <Route path="/home" element={this.state.authenticated ? <HomePage /> : <Navigate to="/login" />} />
                         <Route path="/account" element={this.state.authenticated ? <ProfilePage /> : <Navigate to="/login" />} />
-                        <Route path="/login" element={this.state.authenticated ? <Navigate to="/home" /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
+                        <Route path="/login" element={this.state.authenticated ? <Navigate to={`/${r}/${p}`} /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} />
                         <Route path="/reset-password/:id/:token" element={<ResetPasswordWrapper />} />
-                        {/*<Route path="/patient/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />*/}
-                        <Route path="/patient" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
+                        <Route path="/patient/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
                     </Routes>
                 </div>
             </Router>

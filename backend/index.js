@@ -71,17 +71,17 @@ app.post("/signup", async (req, res) => {
             ...(role === "patient" && {
                 patientID: userID,
                 patientName,
-                accountID: accountID ,
-                age: Number(age) ,
+                accountID: accountID,
+                age: Number(age),
                 bloodType: bloodType,
-                allergenInfo: allergenInfo ,
+                allergenInfo: allergenInfo,
                 emergencyContactID: emergencyContactID,
                 emergencyContactName: emergencyContactName,
                 emergencyContactNumber: emergencyContactNumber,
                 drinkingHabits: drinkingHabits,
                 smokingHabits: smokingHabits,
                 DNR: DNR,
-                primaryPhysician: primaryPhysician ,
+                primaryPhysician: primaryPhysician,
                 physicianID: physicianID,
                 insuranceID: insuranceID
             }),
@@ -186,6 +186,37 @@ app.post('/reset-password/:id/:token', (req, res) => {
         }
     })
 })
+
+// ✅ GET patient data by ID
+app.get('/patient/:id', async (req, res) => {
+    try {
+        //console.log(`Fetching patient with ID: ${req.params.id}`);
+        const patient = await signupModel.findOne({ patientID: req.params.id });
+        if (!patient) return res.status(404).json({ message: 'Patient not found' });
+        res.json(patient);
+    } catch (err) {
+        console.error('Error in GET /patient/:id:', err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// ✅ UPDATE patient data by ID
+app.put('/patient/:id', async (req, res) => {
+    try {
+        //console.log(`Updating patient with ID: ${req.params.id}`);
+        const updatedPatient = await signupModel.findOneAndUpdate(
+            { patientID: req.params.id },
+            req.body,
+            { new: true }
+        );
+        if (!updatedPatient) return res.status(404).json({ message: 'Patient not found' });
+        res.json(updatedPatient);
+    } catch (err) {
+        console.error('Error in PUT /patient/:id:', err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 app.post('/logout', (req, res) => {
     res.clearCookie('token');  // Clear the JWT token cookie

@@ -47,7 +47,12 @@ class Login extends Component
     {
         const { role, userID, password, redirect, goToMain, error } = this.state;
 
-        if (redirect) return <Navigate to="/home" />;
+        if (redirect) 
+        {
+            var r = localStorage.getItem('role');
+            var p = localStorage.getItem('ID');
+            if (r && p) return <Navigate to={`/${r}/${p}`} />;
+        }
         if (goToMain) return <Navigate to="/" />;
 
         let imageSrc = "signin_img.webp";
