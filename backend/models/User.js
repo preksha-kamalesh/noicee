@@ -33,6 +33,7 @@ const signupSchema = new mongoose.Schema({
     },
     accountID: {
         type: String,
+        unique: true,
         required: function () { return this.role === "patient"; }
     },
     age: {

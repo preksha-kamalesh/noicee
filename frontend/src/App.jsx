@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useLocation, matchPath } from 'react-router-dom';
+import { AiOutlineHome, AiOutlineUser, AiOutlineLogout } from 'react-icons/ai';
 import axios from 'axios';
 import Login from "./components/signin";
 import SignUp from './components/signup';
@@ -85,21 +86,21 @@ const Navigation = ({ authenticated, handleLogout, username }) => {
                 <>
                     <Link to="/home" className="nav-link">
                         <button className="nav-button button-hover">
-                            <img src="navbar_home.png" alt="Home" className="nav-icon" />
+                            <AiOutlineHome className="nav-icon" />
                             <span className="button-text">Home</span>
                         </button>
                     </Link>
 
                     <Link to="/account" className="nav-link">
                         <button className="nav-button button-hover">
-                            <img src="navbar_account.png" alt="Account" className="nav-icon" />
-                            <span className="button-text"> {username || "Account"} </span>
+                            <AiOutlineUser className="nav-icon" />
+                            <span className="button-text">{username || "Account"}</span>
                         </button>
                     </Link>
 
                     <Link to="/" onClick={handleLogout} className="nav-link">
                         <button className="nav-button button-hover">
-                            <img src="navbar_logout.png" alt="Logout" className="nav-icon" />
+                            <AiOutlineLogout className="nav-icon" />
                             <span className="button-text">Logout</span>
                         </button>
                     </Link>
