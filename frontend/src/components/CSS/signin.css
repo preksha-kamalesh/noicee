@@ -1,0 +1,382 @@
+/* signin.css */
+.signin-body 
+{
+    font-family: 'Arial', sans-serif;
+    background-color: beige;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signin-body .login-container 
+{
+    display: flex;
+    width: 880px;
+    height: 600px;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.signin-body .login-form-container 
+{
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.signin-body .image-container 
+{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-body .image-container img 
+{
+    width: 100%; /* Ensure the image fits within the container */
+    object-fit: cover; /* Ensures proper scaling without distortion */
+}
+
+.signin-body h2 
+{
+    color: purple;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.signin-body p 
+{
+    color: gray;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.signin-body .form-group { margin-bottom: 20px; }
+
+.signin-body label 
+{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.signin-body input[type="text"], 
+.signin-body input[type="password"], 
+.signin-body input[type="tel"]
+{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.signin-body input[type="submit"] 
+{
+    background-color: #6A11CB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body input[type="submit"]:hover { background-color: #2575FC; }
+
+.signin-body .role-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.signin-body .role-selection button {
+    background-color: #2575FC;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body .role-selection button:hover { background-color: #6A11CB; }
+
+.signin-body .remember-me 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.signin-body .remember-me button 
+{ 
+    background-color: #2575FC;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body .remember-me button:hover { background-color: #6A11CB; }
+
+.signin-body .forgot-password 
+{
+    color: #6A11CB;
+    text-decoration: none;
+    margin-top: 30px;
+    display: block;
+    text-align: center;
+}
+
+.signin-body .forgot-password:hover { text-decoration: underline; }
+
+.signin-body .alternative-login 
+{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.signin-body .alternative-login a 
+{
+    color: #6A11CB;
+    text-decoration: none;
+}
+
+.signin-body .alternative-login a:hover { text-decoration: underline; }
+
+.signin-body .container 
+{
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) 
+{
+    .signin-body .login-container 
+    {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .signin-body .image-container { display: none; }
+
+    .signin-body .login-form-container 
+    {
+        width: 100%;
+        padding: 30px;
+    }
+}
+/* signin.css */
+.signin-body 
+{
+    font-family: 'Arial', sans-serif;
+    background-color: beige;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signin-body .login-container 
+{
+    display: flex;
+    width: 880px;
+    height: 600px;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.signin-body .login-form-container 
+{
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.signin-body .image-container 
+{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-body .image-container img 
+{
+    width: 100%; /* Ensure the image fits within the container */
+    object-fit: cover; /* Ensures proper scaling without distortion */
+}
+
+.signin-body h2 
+{
+    color: purple;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.signin-body p 
+{
+    color: gray;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.signin-body .form-group { margin-bottom: 20px; }
+
+.signin-body label 
+{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.signin-body input[type="text"], 
+.signin-body input[type="password"], 
+.signin-body input[type="tel"]
+{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.signin-body input[type="submit"] 
+{
+    background-color: #6A11CB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body input[type="submit"]:hover { background-color: #2575FC; }
+
+.signin-body .role-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.signin-body .role-selection button {
+    background-color: #2575FC;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body .role-selection button:hover { background-color: #6A11CB; }
+
+.signin-body .remember-me 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.signin-body .remember-me button 
+{ 
+    background-color: #2575FC;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signin-body .remember-me button:hover { background-color: #6A11CB; }
+
+.signin-body .forgot-password 
+{
+    color: #6A11CB;
+    text-decoration: none;
+    margin-top: 30px;
+    display: block;
+    text-align: center;
+}
+
+.signin-body .forgot-password:hover { text-decoration: underline; }
+
+.signin-body .alternative-login 
+{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.signin-body .alternative-login a 
+{
+    color: #6A11CB;
+    text-decoration: none;
+}
+
+.signin-body .alternative-login a:hover { text-decoration: underline; }
+
+.signin-body .container 
+{
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) 
+{
+    .signin-body .login-container 
+    {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .signin-body .image-container { display: none; }
+
+    .signin-body .login-form-container 
+    {
+        width: 100%;
+        padding: 30px;
+    }
+}

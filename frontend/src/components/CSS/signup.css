@@ -1,0 +1,183 @@
+.signup-body 
+{
+    font-family: 'Arial', sans-serif;
+    background-image: url("/public/signup_img.jpg");
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.signup-body .sign-up-container 
+{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.signup-body h2 
+{
+    color: purple;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.signup-body p 
+{
+    color: gray;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.signup-body label 
+{
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.signup-body input[type="text"], .signup-body input[type="password"] 
+{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Role Selection Buttons */
+.signup-body .role-selection 
+{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.signup-body .role-selection button 
+{
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9e63b6;
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signup-body .role-selection button:hover 
+{
+    background-color: #71c3d1;
+}
+
+.signup-body input[disabled] 
+{
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.signup-body input[type="submit"] 
+{
+    background-color: #9e63b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.signup-body input[type="submit"]:hover { background-color: #71c3d1; }
+
+.signup-body .tooltip 
+{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #757171;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50px) translateX(200px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.signup-body .input-with-tooltip input:focus + .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-355px) translateX(800px);
+}
+
+/* Hide tooltip if valid */
+.signup-body input[type="password"].valid + .tooltip {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.signup-body .back-to-login {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-body .back-to-login a {
+    color: #57b7dd;
+    text-decoration: none;
+}
+
+.signup-body .back-to-login a:hover {
+    text-decoration: underline;
+}
+
+.signup-body .remember-me {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-body .remember-me button {
+    background-color: #2575FC;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.signup-body .remember-me button:hover {
+    background-color: #6A11CB;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .signup-body .sign-up-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
