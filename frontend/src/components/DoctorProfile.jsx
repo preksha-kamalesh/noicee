@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import './CSS/DoctorProfile.css';
 
 const DoctorProfile = () => {
   const [doctor, setDoctor] = useState(null);
