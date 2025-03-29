@@ -199,12 +199,11 @@ app.get('/patient/:id', async (req, res) => {
     }
 });
 
-
 app.put('/patient/:id', async (req, res) => {
     try {
-        //console.log(`Updating patient with ID: ${req.params.id}`);
+        console.log(`Updating patient with ID: ${req.params.id}`);
         const updatedPatient = await signupModel.findOneAndUpdate(
-            { accountID: req.params.id },
+            { patientID: req.params.id }, // Change from accountID to patientID
             req.body,
             { new: true }
         );
@@ -215,6 +214,7 @@ app.put('/patient/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
 
 app.post('/logout', (req, res) => {
     res.clearCookie('token');  // Clear the JWT token cookie

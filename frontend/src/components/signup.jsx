@@ -9,7 +9,7 @@ class SignUp extends Component {
         this.state = {
             role: '', userID: '', password: '', confirmPassword: '',
             patientName: '', accountID: "", age: "", bloodType: "", allergenInfo: "", emergencyContactID: "", emergencyContactName: "",
-            emergencyContactNumber: "", drinkingHabits: "No", smokingHabits: "No", DNR: "No", primaryPhysician: "", physicianID: "", insuranceID: "",
+            emergencyContactNumber: "", drinkingHabits: "", smokingHabits: "", DNR: "", primaryPhysician: "", physicianID: "", insuranceID: "",
             passwordTooltip: true, redirect: false, goToMain: false
         };
 

@@ -4,121 +4,151 @@ import axios from 'axios';
 import bcrypt from "bcryptjs";
 import "./CSS/patient.css";
 
-export function Patient() 
-{
+// Wrapper to pass route params
+export function Patient() {
     const { id } = useParams();
     const role = localStorage.getItem('role');
-
     return <PatientInfo role={role} id={id} />;
 }
 
-export class PatientInfo extends Component 
-{
-    constructor(props) 
-    {
+export class PatientInfo extends Component {
+    constructor(props) {
         super(props);
-        this.state = { role: '', patientID: '', patientName: '', accountID: '', age: '', bloodType: '', allergenInfo: '',
-            emergencyContactID: '', emergencyContactName: '', emergencyContactNumber: '', drinkingHabits: '',
-            smokingHabits: '', DNR: '', primaryPhysician: '', physicianID: '', insuranceID: '', isEditing: false, 
-            hashedInsuranceID: '', isInsuranceVisible: false, passwordInput: '',
+        this.state = {
+            // Patient Info
+            patientID: '',
+            patientName: '',
+            accountID: '',
+            age: '',
+            bloodType: '',
+            allergenInfo: '',
+            emergencyContactID: '',
+            emergencyContactName: '',
+            emergencyContactNumber: '',
+            drinkingHabits: '',
+            smokingHabits: '',
+            DNR: '',
+            primaryPhysician: '',
+            physicianID: '',
+            insuranceID: '',
+            
+            // UI State
+            isEditing: false,
+            isInsuranceVisible: false,
+            hashedInsuranceID: '',
+            passwordInput: '',
+            showMedicalInfo: false, // To toggle between patient and doctor forms
         };
     }
 
-    componentDidMount() 
-    {
-        document.body.classList.add('patientinfo-body')
-        const patientID = localStorage.getItem('ID'); 
-        if (patientID) 
-        {
+    componentDidMount() {
+        document.body.classList.add('patientinfo-body');
+        const patientID = localStorage.getItem('ID');
+        if (patientID) {
             this.setState({ patientID });
             this.fetchPatientData(patientID);
         }
     }
 
-    componentWillUnmount() { document.body.classList.remove('patientinfo-body'); }
+    componentWillUnmount() {
+        document.body.classList.remove('patientinfo-body');
+    }
 
+    // Fetch Patient Data from Backend
     fetchPatientData = async (patientID) => {
-        // console.log('Fetching data for:', patientID); 
-        try 
-        {
+        try {
             const response = await axios.get(`http://localhost:9000/patient/${patientID}`);
             this.setState({ ...response.data });
 
-            if (response.data.insuranceID) { this.hashInsuranceID(response.data.insuranceID); }
-        } 
-        catch (error) 
-        {
-            console.error('Error fetching patient data:', error.response || error);
+            // Hash Insurance ID after fetching
+            if (response.data.insuranceID) {
+                this.hashInsuranceID(response.data.insuranceID);
+            }
+        } catch (error) {
+            console.error('Error fetching patient data:', error);
             alert(error.response?.data?.message || "Failed to load patient data");
         }
     };
 
+    // Hash Insurance ID
     hashInsuranceID = async (insuranceID) => {
         const hashed = await bcrypt.hash(insuranceID, 10);
         this.setState({ hashedInsuranceID: hashed });
     };
 
-    handleSave = async () => {
-        try 
-        {
-            const { patientID, ...patientData } = this.state;
-            await axios.put(`http://localhost:9000/patient/${patientID}`, patientData);
-            alert('Patient data updated successfully');
-            this.setState({ isEditing: false });
-        } 
-        catch (error) 
-        {
-            console.error('Error updating patient data:', error);
-            alert(error.response?.data?.message || "Failed to update patient data");
-        }
-    };
-
-
+    // Handle Input Changes
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     };
 
-    handleRadioChange = (e) => { this.setState({ DNR: e.target.value }); };
+    // Handle Save for Patient Data
+    handleSave = async () => {
+        try {
+            const { patientID, ...patientData } = this.state;
+            await axios.put(`http://localhost:9000/patient/${patientID}`, patientData);
+            alert('Patient data updated successfully');
+            this.setState({ isEditing: false });
+        } catch (error) {
+            console.error('Error updating patient data:', error);
+            alert(error.response?.data?.message || "Failed to update patient data");
+        }
+    };
 
-    toggleEdit = () => { this.setState((prevState) => ({ isEditing: !prevState.isEditing })); };
+    // Handle Edit Toggle
+    toggleEdit = () => {
+        this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
+    };
 
+    // Handle Password Input Change
     handlePasswordInputChange = (e) => {
         this.setState({ passwordInput: e.target.value });
     };
 
+    // Handle Viewing Insurance ID
     handleViewInsurance = async () => {
         const { passwordInput } = this.state;
-        const storedPassword = localStorage.getItem('Pass'); 
+        const storedPassword = localStorage.getItem('Pass');
 
-        try {
-            if (typeof passwordInput === 'string' && typeof storedPassword === 'string') {
-                const match = await bcrypt.compare(passwordInput, storedPassword);
-                if (match) {
-                    this.setState({ isInsuranceVisible: true });
-                } else {
-                    alert('Incorrect password');
-                }
+        if (passwordInput && storedPassword) {
+            const match = await bcrypt.compare(passwordInput, storedPassword);
+            if (match) {
+                this.setState({ isInsuranceVisible: true });
             } else {
-                alert('Invalid password format');
+                alert('Incorrect password');
             }
-        } catch (error) {
-            console.error('Error comparing passwords:', error);
-            alert('Failed to verify password');
+        } else {
+            alert('Invalid password format');
         }
     };
 
-    render() 
-    {
-        const { isEditing, patientID, patientName, accountID, age, bloodType, allergenInfo, emergencyContactID,
-            emergencyContactName, emergencyContactNumber, drinkingHabits, smokingHabits, DNR, primaryPhysician,
-            physicianID, insuranceID, hashedInsuranceID, isInsuranceVisible, passwordInput } = this.state;
+    // Toggle to Doctor Form
+    handleShowMedicalInfo = () => {
+        this.setState({ showMedicalInfo: true });
+    };
 
+    render() {
+        const { role } = this.props;
+        const {
+            patientID, patientName, accountID, age, bloodType, allergenInfo,
+            emergencyContactID, emergencyContactName, emergencyContactNumber,
+            drinkingHabits, smokingHabits, DNR, primaryPhysician, physicianID,
+            insuranceID, hashedInsuranceID, isEditing, isInsuranceVisible,
+            passwordInput, showMedicalInfo
+        } = this.state;
+
+        if (showMedicalInfo) {
+            return <DoctorForm patientID={patientID} />;
+        }
         return (
             <div className="patient-info-container">
-                <div className="header-container">
+               <div className="header-container">
                     <h2>Patient ID: {patientID}</h2>
-                    <button>Get other Medical Information</button>
+                    {role === 'doctor' && (
+                        <button onClick={this.handleShowMedicalInfo}>
+                            Get other Medical Information
+                        </button>
+                    )}
                 </div>
                 <form className="patient-info-form">
 
@@ -228,6 +258,49 @@ export class PatientInfo extends Component
                         )}
                     </div>
                 </form>
+            </div>
+        );
+    }
+}
+
+// Separate Doctor Form for Medical Info (only accessible by doctors)
+class DoctorForm extends Component {
+    state = {
+        currentMeds: '',
+        currentIllness: '',
+        previousSurgeries: '',
+        weight: '',
+        BMI: '',
+        bloodSugar: '',
+        BP: ''
+    };
+
+    handleInputChange = (e) => {
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+    };
+
+    handleSave = async () => {
+        try {
+            const { patientID } = this.props;
+            await axios.put(`http://localhost:9000/patient/${patientID}`, this.state);
+            alert('Medical data updated successfully');
+        } catch (error) {
+            console.error('Error updating medical data:', error);
+            alert(error.response?.data?.message || "Failed to update medical data");
+        }
+    };
+
+    render() {
+        return (
+            <div className="doctor-form">
+                <h3>Medical Information</h3>
+                <input type="text" name="currentMeds" placeholder="Current Medications"
+                    onChange={this.handleInputChange} />
+
+                <button type="button" onClick={this.handleSave}>
+                    Save
+                </button>
             </div>
         );
     }

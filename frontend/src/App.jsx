@@ -65,7 +65,7 @@ class App extends Component
                         <Route path="/forgot-password" element={<ForgotPassword />} />
                         <Route path="/reset-password/:id/:token" element={<ResetPasswordWrapper />} />
                         <Route path="/patient/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
-                        <Route path="/patient/:id/:docid" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
+                        <Route path="/doctor/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
                     </Routes>
                 </div>
             </Router>
