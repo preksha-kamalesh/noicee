@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 import './CSS/signin.css';
 
 class Login extends Component 
@@ -26,6 +27,8 @@ class Login extends Component
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("role", role);
                 localStorage.setItem("ID", userID);
+                const hashedPassword = await bcrypt.hash(password, 10);
+                localStorage.setItem("Pass", hashedPassword);
     
                 alert('Sign In successful!');
                 this.props.onLoginSuccess();
@@ -78,7 +81,7 @@ class Login extends Component
                             <input type="text" id="role" value={role.charAt(0).toUpperCase() + role.slice(1)} disabled />*/ }
 
                             <label htmlFor="userID">
-                                {role === 'doctor' ? 'Doctor ID' : role === 'patient' ? 'Patient ID' : 'Paramedic ID'}:
+                                {role === 'doctor' ? 'Doctor ID' : role === 'patient' ? 'Account ID' : 'Paramedic ID'}:
                             </label>
                             <input type="text" id="userID" name="userID" placeholder={`Enter your ${role} ID`}
                                 value={userID} onChange={this.handleInputChange} required />

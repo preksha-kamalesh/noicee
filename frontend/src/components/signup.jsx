@@ -23,6 +23,7 @@ class SignUp extends Component {
         e.preventDefault();
         const { password, confirmPassword, userID } = this.state;
 
+        console.log(userID, "logged in");   
         if (!this.passwordRegex.test(password)) {
             alert("Password must be at least 8 characters long and contain letters, numbers, underscores, or '@'.");
             return;

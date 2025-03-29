@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import bcrypt from "bcryptjs";
 import "./CSS/patient.css";
 
 export function Patient() 
@@ -18,7 +19,8 @@ export class PatientInfo extends Component
         super(props);
         this.state = { role: '', patientID: '', patientName: '', accountID: '', age: '', bloodType: '', allergenInfo: '',
             emergencyContactID: '', emergencyContactName: '', emergencyContactNumber: '', drinkingHabits: '',
-            smokingHabits: '', DNR: '', primaryPhysician: '', physicianID: '', insuranceID: '', isEditing: false
+            smokingHabits: '', DNR: '', primaryPhysician: '', physicianID: '', insuranceID: '', isEditing: false, 
+            hashedInsuranceID: '', isInsuranceVisible: false, passwordInput: '',
         };
     }
 
@@ -41,6 +43,8 @@ export class PatientInfo extends Component
         {
             const response = await axios.get(`http://localhost:9000/patient/${patientID}`);
             this.setState({ ...response.data });
+
+            if (response.data.insuranceID) { this.hashInsuranceID(response.data.insuranceID); }
         } 
         catch (error) 
         {
@@ -49,6 +53,10 @@ export class PatientInfo extends Component
         }
     };
 
+    hashInsuranceID = async (insuranceID) => {
+        const hashed = await bcrypt.hash(insuranceID, 10);
+        this.setState({ hashedInsuranceID: hashed });
+    };
 
     handleSave = async () => {
         try 
@@ -75,15 +83,43 @@ export class PatientInfo extends Component
 
     toggleEdit = () => { this.setState((prevState) => ({ isEditing: !prevState.isEditing })); };
 
+    handlePasswordInputChange = (e) => {
+        this.setState({ passwordInput: e.target.value });
+    };
+
+    handleViewInsurance = async () => {
+        const { passwordInput } = this.state;
+        const storedPassword = localStorage.getItem('Pass'); 
+
+        try {
+            if (typeof passwordInput === 'string' && typeof storedPassword === 'string') {
+                const match = await bcrypt.compare(passwordInput, storedPassword);
+                if (match) {
+                    this.setState({ isInsuranceVisible: true });
+                } else {
+                    alert('Incorrect password');
+                }
+            } else {
+                alert('Invalid password format');
+            }
+        } catch (error) {
+            console.error('Error comparing passwords:', error);
+            alert('Failed to verify password');
+        }
+    };
+
     render() 
     {
-        const { isEditing, patientName, accountID, age, bloodType, allergenInfo, emergencyContactID,
+        const { isEditing, patientID, patientName, accountID, age, bloodType, allergenInfo, emergencyContactID,
             emergencyContactName, emergencyContactNumber, drinkingHabits, smokingHabits, DNR, primaryPhysician,
-            physicianID, insuranceID } = this.state;
+            physicianID, insuranceID, hashedInsuranceID, isInsuranceVisible, passwordInput } = this.state;
 
         return (
             <div className="patient-info-container">
-                <h2>ID: {localStorage.getItem('ID')}</h2>
+                <div className="header-container">
+                    <h2>Patient ID: {patientID}</h2>
+                    <button>Get other Medical Information</button>
+                </div>
                 <form className="patient-info-form">
 
                     <label>Name:</label>
@@ -92,7 +128,7 @@ export class PatientInfo extends Component
 
                     <label>Account ID:</label>
                     <input type="text" name="accountID" value={accountID}
-                        onChange={this.handleInputChange} disabled={!isEditing} />
+                        onChange={this.handleInputChange} disabled />
 
                     <label>Age:</label>
                     <input type="number" name="age" value={age}
@@ -162,10 +198,27 @@ export class PatientInfo extends Component
                     <input type="text" name="physicianID" value={physicianID}
                         onChange={this.handleInputChange} disabled={!isEditing} />
 
-                    <label>Insurance ID:</label>
-                    <input type="text" name="insuranceID" value={insuranceID}
-                        onChange={this.handleInputChange} disabled={!isEditing}
-                    />
+                    <label>Insurance ID: </label>
+                    <div className="insurance-wrapper">
+                        <input
+                            type="text"
+                            value={isInsuranceVisible ? insuranceID : hashedInsuranceID}
+                            disabled
+                        />
+                        {!isInsuranceVisible && (
+                            <>
+                                <input
+                                    type="password"
+                                    placeholder="Enter password"
+                                    value={passwordInput}
+                                    onChange={this.handlePasswordInputChange}
+                                />
+                                <button type="button" onClick={this.handleViewInsurance}>
+                                    View
+                                </button>
+                            </>
+                        )}
+                    </div>
 
                     <div className="button-group">
                         {isEditing ? (

@@ -37,7 +37,7 @@ class App extends Component
             this.setState({ authenticated: false, username: null });
             window.localStorage.removeItem("isLoggedIn");
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            alert("Thank you for visiting NFC tag...");
+            alert("Thank you...");
         } else { alert('Logout failed. Please try again.'); }
     };
 
@@ -65,6 +65,7 @@ class App extends Component
                         <Route path="/forgot-password" element={<ForgotPassword />} />
                         <Route path="/reset-password/:id/:token" element={<ResetPasswordWrapper />} />
                         <Route path="/patient/:id" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
+                        <Route path="/patient/:id/:docid" element={this.state.authenticated ? <PatientInfo /> : <Login onLoginSuccess={this.handleLoginSuccess} />} />
                     </Routes>
                 </div>
             </Router>

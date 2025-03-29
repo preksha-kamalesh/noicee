@@ -106,7 +106,7 @@ app.post("/login", async (req, res) => {
 
         let user = null;
         if (role === "doctor") user = await signupModel.findOne({ docID: userID });
-        else if (role === "patient") user = await signupModel.findOne({ patientID: userID });
+        else if (role === "patient") user = await signupModel.findOne({ accountID: userID });
         else if (role === "paramedic") user = await signupModel.findOne({ paramedicID: userID });
         else return res.status(400).json({ message: "Invalid role." });
 
@@ -187,11 +187,10 @@ app.post('/reset-password/:id/:token', (req, res) => {
     })
 })
 
-// ✅ GET patient data by ID
 app.get('/patient/:id', async (req, res) => {
     try {
         //console.log(`Fetching patient with ID: ${req.params.id}`);
-        const patient = await signupModel.findOne({ patientID: req.params.id });
+        const patient = await signupModel.findOne({ accountID: req.params.id });
         if (!patient) return res.status(404).json({ message: 'Patient not found' });
         res.json(patient);
     } catch (err) {
@@ -200,12 +199,12 @@ app.get('/patient/:id', async (req, res) => {
     }
 });
 
-// ✅ UPDATE patient data by ID
+
 app.put('/patient/:id', async (req, res) => {
     try {
         //console.log(`Updating patient with ID: ${req.params.id}`);
         const updatedPatient = await signupModel.findOneAndUpdate(
-            { patientID: req.params.id },
+            { accountID: req.params.id },
             req.body,
             { new: true }
         );
@@ -216,7 +215,6 @@ app.put('/patient/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
 
 app.post('/logout', (req, res) => {
     res.clearCookie('token');  // Clear the JWT token cookie

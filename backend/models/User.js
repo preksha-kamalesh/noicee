@@ -6,21 +6,18 @@ const signupSchema = new mongoose.Schema({
         enum: ["doctor", "patient", "paramedic"],
         required: true
     },
-    // Doctor-specific field
     docID: {
         type: String,
         unique: true,
         sparse: true,
         required: function () { return this.role === "doctor"; }
     },
-    // Paramedic-specific field
     paramedicID: {
         type: String,
         unique: true,
         sparse: true,
         required: function () { return this.role === "paramedic"; }
     },
-    // Patient-specific fields
     patientID: {
         type: String,
         unique: true,
@@ -70,7 +67,6 @@ const signupSchema = new mongoose.Schema({
     physicianID: { type: String, required: function () { return this.role === "patient"; }  },
     insuranceID: { type: String, required: function () { return this.role === "patient"; }  },
 
-    // Common fields
     password: { type: String, required: true }
 });
 
